@@ -1,0 +1,27 @@
+{
+  "name": "auth.fermin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:dafn/auth.fermin.git",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "oidc-provider": "^5.5.5",
+    "svelte": "^3.6.5"
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0",
+    "parcel": "^1.12.3",
+    "parcel-plugin-svelte": "^3.0.1",
+    "pug": "^2.0.4"
+  },
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "svelte": {
+    "compilerOptions": {
+      "css": false
+    }
+  }
+}

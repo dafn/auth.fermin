@@ -1,0 +1,93 @@
+<script>
+  const idInputText = "Epost",
+    keyInputText = "Passord",
+    LogInButtonText = "Log In";
+
+  let mail = "";
+</script>
+
+<style>
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  .main_container {
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2),
+      0 3px 3px -2px rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+    width: 350px;
+  }
+  .input_container {
+    display: flex;
+    flex-direction: column;
+    transition: all 1s ease;
+    width: 300px;
+    padding: 10px 0;
+  }
+  input {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    border-radius: 0.28571429rem;
+    padding: 0.67857143em 1em;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    transition: box-shadow 0.1s ease, border-color 0.1s ease,
+      -webkit-box-shadow 0.1s ease;
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.21428571em;
+    font-size: 100%;
+    outline: 0;
+  }
+  input:focus {
+    border-color: #85b7d9;
+  }
+  img {
+    content: url("../../assets/fermin-inverted.png");
+    position: absolute;
+    top: 30px;
+    height: 60px;
+  }
+  button {
+    position: absolute;
+    background: #333;
+    color: white;
+    box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+    font-size: 1rem;
+    margin: 0 0.25em 0 0;
+    padding: 0.78571429em 1.5em 0.78571429em;
+    border-radius: 0.28571429rem;
+    bottom: 30px;
+    width: 300px;
+    border: none;
+    outline: 0;
+  }
+  button:hover {
+    background: rgb(41, 41, 41);
+    cursor: pointer;
+  }
+</style>
+
+<section>
+  <div class="main_container">
+
+    <img alt="fermin logo" />
+
+    <div id="username_container" class="input_container">
+      <input type="text" placeholder={idInputText} bind:value={mail} />
+    </div>
+
+    <div id="password_container" class="input_container">
+      <input type="password" placeholder={keyInputText} />
+    </div>
+
+    <button> {LogInButtonText} </button>
+  </div>
+</section>
