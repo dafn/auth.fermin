@@ -21,6 +21,7 @@ const oidc = new Provider('http://localhost:3000', {
     email: ['email', 'email_verified'],
     profile: ['name']
   },
+  clients,
   findById: (ctx, id) => users.find(id)
 })
 
@@ -34,9 +35,48 @@ app.use(express.static(path.resolve(__dirname, 'dist/'), {
   }
 }))
 
-oidc.initialize({ clients }).then(function () {
-  app.use('/interaction/', interaction)
+oidc.initialize({ clients }).then( async () => {
+
+  app.route('/interaction/:uid')
+    .get( async (req, res) => {
+
+      try {
+        const {
+          uid, prompt, params, session,
+        } = await oidc.interactionDetails(req)
+
+        const client = await oidc.Client.find(params.client_id)
+
+        switch (promt.name) {
+          case value:
+            
+            break;
+        
+          default:
+            break;
+        }
+
+        console.log(uid, prompt, params, session)
+
+      } catch (error) {
+        console.log(error)
+      }
+
+      console.log('GET :: /:uid')
+      res.sendFile(path.resolve('dist/index.html'))
+    })
+    .post((req, res) => {
+      console.log('POST :: /:uid')
+      res.send('POST :: /:uid')
+    })
+
+  app.post('/interaction/:uid/submit', (req, res) => {
+    console.log(req.body)
+    console.log('GET :: /:uid/submit')
+    res.send('GET :: /:uid/submit')
+  })
 
   app.use(oidc.callback)
+
   app.listen(3000, console.log('Listening to port 3000'))
 })
