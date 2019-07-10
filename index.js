@@ -1,7 +1,8 @@
 const express = require('express'),
   app = express(),
   path = require('path'),
-  Provider = require('oidc-provider')
+  Provider = require('oidc-provider'),
+  bodyParser = require('body-parser')
 
 const interaction = require('./routes/interaction')
 
@@ -22,6 +23,9 @@ const oidc = new Provider('http://localhost:3000', {
   },
   findById: (ctx, id) => users.find(id)
 })
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(express.static(path.resolve(__dirname, 'dist/'), {
   setHeaders: res => {

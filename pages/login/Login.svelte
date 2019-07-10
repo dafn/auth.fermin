@@ -1,7 +1,8 @@
 <script>
   const idInputText = "Epost",
     keyInputText = "Passord",
-    LogInButtonText = "Log In";
+    LogInButtonText = "Log In",
+    postUrl = location.href + "/submit";
 
   let mail = "";
 </script>
@@ -14,7 +15,7 @@
     justify-content: center;
     height: 100%;
   }
-  .main_container {
+  form {
     position: relative;
     border-radius: 8px;
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2),
@@ -25,6 +26,16 @@
     align-items: center;
     height: 450px;
     width: 350px;
+  }
+  img {
+    content: url("../../assets/fermin-inverted.png");
+    position: absolute;
+    top: 30px;
+    height: 60px;
+  }
+  h2 {
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    margin-top: 0;
   }
   .input_container {
     display: flex;
@@ -49,11 +60,13 @@
   input:focus {
     border-color: #85b7d9;
   }
-  img {
-    content: url("../../assets/fermin-inverted.png");
-    position: absolute;
-    top: 30px;
-    height: 60px;
+  #checkbox_container {
+    margin: 5px auto 0 20px;
+  }
+  label {
+    color: gray;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 14px;
   }
   button {
     position: absolute;
@@ -76,18 +89,29 @@
 </style>
 
 <section>
-  <div class="main_container">
+  <form action={postUrl} method="POST">
 
     <img alt="fermin logo" />
 
+    <h2>Login to Fermin</h2>
+
     <div id="username_container" class="input_container">
-      <input type="text" placeholder={idInputText} bind:value={mail} />
+      <input
+        type="text"
+        name="login"
+        placeholder={idInputText}
+        bind:value={mail} />
     </div>
 
     <div id="password_container" class="input_container">
-      <input type="password" placeholder={keyInputText} />
+      <input type="password" name="passsword" placeholder={keyInputText} />
+    </div>
+
+    <div id="checkbox_container">
+      <input type="checkbox" name="remember" value="" />
+      <label for="checkbox">Remember Me</label>
     </div>
 
     <button> {LogInButtonText} </button>
-  </div>
+  </form>
 </section>
