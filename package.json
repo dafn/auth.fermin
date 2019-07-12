@@ -5,6 +5,7 @@
   "repository": "git@github.com:dafn/auth.fermin.git",
   "license": "MIT",
   "scripts": {
+    "serve": "parcel serve src/index.pug",
     "dev": "parcel watch src/index.pug & nodemon index.js"
   },
   "dependencies": {

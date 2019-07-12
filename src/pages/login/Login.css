@@ -1,5 +1,5 @@
 html {
-  background: lightgrey;
+  background: linear-gradient(to bottom right, #99ccff, #3399ff);
 }
 body {
   margin: 0;
@@ -21,7 +21,7 @@ form {
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2),
     0 3px 3px -2px rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
   background: white;
-  height: 450px;
+  height: 500px;
   width: 350px;
 }
 img {
@@ -31,8 +31,9 @@ img {
   height: 60px;
 }
 h2 {
-  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  color: #333333;
   margin-top: 0;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 .input_container {
   display: flex;
@@ -67,7 +68,7 @@ label {
 }
 button {
   position: absolute;
-  background: #333;
+  background: #3399ff;
   color: white;
   box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
   font-size: 1rem;
@@ -80,7 +81,7 @@ button {
   outline: 0;
 }
 button:hover {
-  background: rgb(41, 41, 41);
+  background: #0073e6;
   cursor: pointer;
 }
 

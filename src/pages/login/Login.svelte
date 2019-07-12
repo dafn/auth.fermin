@@ -1,19 +1,25 @@
 <script>
-  import Particles from "../../components/Particles/index.svelte";
+  import Particles from "../../components/Particles";
   import "./Login.css";
+
+  new Particles({
+    target: document.querySelector('main'),
+    props: {
+      id: "particles"
+    }
+  })
 
   const idInputText = "Epost",
     keyInputText = "Passord",
     LogInButtonText = "Log In",
     action = location.href,
-    id = 'particles'
+    id = "particles";
 
   let mail = "";
 </script>
 
 <section>
   <form {action} method="POST">
-
     <img alt="fermin logo" />
 
     <h2>Login to Fermin</h2>
