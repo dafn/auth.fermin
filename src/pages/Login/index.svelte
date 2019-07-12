@@ -1,6 +1,6 @@
 <script>
   import Particles from "../../components/Particles";
-  import "./Login.css";
+  import "./index.css";
 
   new Particles({
     target: document.querySelector('main'),

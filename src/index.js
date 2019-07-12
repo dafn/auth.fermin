@@ -1,5 +1,5 @@
-import Login from './pages/login/Login.svelte';
+import Login from "./pages/Login/index.svelte";
 
 new Login({
-  target: document.querySelector('main')
-})
+  target: document.querySelector("main")
+});
