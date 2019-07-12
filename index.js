@@ -40,30 +40,31 @@ app.use(express.static(path.resolve(__dirname, 'dist/'), {
   }
 }))
 
-app.get('/interaction/:uid', async (req, res, next) => {
-  console.log('GET :: /:uid')
-
-  try {
-    const {
-      uid, prompt, params, session,
-    } = await oidc.interactionDetails(req)
-
-    console.log(uid, prompt, params, session)
-
-    const client = await oidc.Client.find(params.client_id)
-
-    if (prompt.name.toLowerCase() === 'login')
-      return res.sendFile(path.resolve('dist/index.html'))
-    else
-      return res.send('OKI DOKI')
-
-  } catch (error) {
-    return next(error)
-  }
-})
+app.route('/interaction/:uid')
+  .get(async (req, res, next) => {
+    console.log('GET :: /:uid')
+  
+    try {
+      const {
+        uid, prompt, params, session,
+      } = await oidc.interactionDetails(req)
+  
+      console.log(uid, prompt, params, session)
+  
+      const client = await oidc.Client.find(params.client_id)
+  
+      if (prompt.name.toLowerCase() === 'login')
+        return res.sendFile(path.resolve('dist/Login/index.html'))
+      else
+        return res.sendFile(path.resolve('dist/Consent/index.html'))
+  
+    } catch (error) {
+      return next(error)
+    }
+  })
 
 app.post('/interaction/:uid/login', (req, res, next) => {
-  console.log('GET :: /:uid/login')
+  console.log('POST :: /:uid/login')
   // res.sendFile(path.resolve('dist/index.html'))
 })
 
@@ -73,16 +74,12 @@ app.post('/interaction/:uid/confirm', async (req, res, next) => {
   try {
     const { prompt: { name, details } } = await oidc.interactionDetails(req)
 
-    console.log('GET :: /:uid/confirm')
-
-
     assert.equal(name, 'consent')
 
     await oidc.interactionFinished(req, res, {}, { mergeWithLastSubmission: true });
 
   } catch (error) {
-    console.log('ERROR')
-    next(error)
+    return next(error)
   }
 })
 
@@ -94,60 +91,3 @@ app.get('/interaction/:uid/abort', (req, res, next) => {
 app.use(oidc.callback)
 
 app.listen(3000, console.log('Listening to port 3000'))
-
-
-
-
-/*
-
-oidc.initialize({ clients }).then( async () => {
-
-  app.route('/interaction/:uid')
-    .get( async (req, res) => {
-
-      try {
-        const {
-          uid, prompt, params, session,
-        } = await oidc.interactionDetails(req)
-
-        const client = await oidc.Client.find(params.client_id)
-
-        switch (promt.name) {
-          case value:
-
-            break;
-
-          default:
-            break;
-        }
-
-        console.log(uid, prompt, params, session)
-
-      } catch (error) {
-        console.log(error)
-      }
-
-      console.log('GET :: /:uid')
-      res.sendFile(path.resolve('dist/index.html'))
-    })
-    .post((req, res) => {
-      console.log('POST :: /:uid')
-      res.send('POST :: /:uid')
-    })
-
-  app.post('/interaction/:uid/submit', (req, res) => {
-    console.log(req.body)
-
-
-
-    console.log('GET :: /:uid/submit')
-    res.send('GET :: /:uid/submit')
-  })
-
-  app.use(oidc.callback)
-
-  app.listen(3000, console.log('Listening to port 3000'))
-
-  })
-
-*/

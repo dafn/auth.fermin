@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "parcel serve src/index.pug",
-    "dev": "parcel watch src/index.pug & nodemon index.js"
+    "dev": "parcel watch src/pages/Login/index.pug src/pages/Consent/index.pug & nodemon index.js"
   },
   "dependencies": {
     "assets": "^3.0.1",
