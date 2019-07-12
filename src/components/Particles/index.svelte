@@ -1,10 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import "particles.js";
+  import config from '../../assets/particles.config.js'
+  import "./particles.js";
 
   export let id;
 
-  onMount(() => window.particlesJS.load(id, "assets/particles.json"));
+  onMount(() => window.particlesJS.load(id, config));
 </script>
 
 <style>

@@ -33,8 +33,6 @@ app.use("/", (req, res, next) => {
   next()
 })
 
-app.use('*/assets/', express.static(path.resolve(__dirname, 'dist/assets')))
-
 app.use(express.static(path.resolve(__dirname, 'dist/'), {
   setHeaders: res => {
     res.set('X-XSS-Protection', '1; mode=block')

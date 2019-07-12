@@ -14,7 +14,6 @@
     "express": "^4.16.4",
     "lodash": "^4.17.11",
     "oidc-provider": "^6.1.0",
-    "particles.js": "^2.0.0",
     "svelte": "^3.6.5"
   },
   "devDependencies": {
