@@ -22,7 +22,9 @@ const oidc = new Provider('http://localhost:3000', {
     profile: ['name']
   },
   clients,
-  findById: (ctx, id) => users.find(id)
+  findById: (ctx, id) => users.find(id),
+  renderError: (ctx, {error, error_description}) => 
+    ctx.res.redirect(`/Error?error=${error}&error_description=${error_description}`)
 })
 
 app.use(bodyParser.json())
@@ -40,28 +42,25 @@ app.use(express.static(path.resolve(__dirname, 'dist/'), {
   }
 }))
 
-app.route('/interaction/:uid')
-  .get(async (req, res, next) => {
-    console.log('GET :: /:uid')
-  
-    try {
-      const {
-        uid, prompt, params, session,
-      } = await oidc.interactionDetails(req)
-  
-      console.log(uid, prompt, params, session)
-  
-      const client = await oidc.Client.find(params.client_id)
-  
-      if (prompt.name.toLowerCase() === 'login')
-        return res.sendFile(path.resolve('dist/Login/index.html'))
-      else
-        return res.sendFile(path.resolve('dist/Consent/index.html'))
-  
-    } catch (error) {
-      return next(error)
-    }
-  })
+app.get('/interaction/:uid', async (req, res, next) => {
+  try {
+    const {
+      uid, prompt, params, session,
+    } = await oidc.interactionDetails(req)
+
+    console.log(uid, prompt, params, session)
+
+    const client = await oidc.Client.find(params.client_id)
+
+    if (prompt.name.toLowerCase() === 'login')
+      return res.sendFile(path.resolve('dist/Login/index.html'))
+    else
+      return res.sendFile(path.resolve('dist/Consent/index.html'))
+
+  } catch (error) {
+    return next(error)
+  }
+})
 
 app.post('/interaction/:uid/login', (req, res, next) => {
   console.log('POST :: /:uid/login')
@@ -87,6 +86,16 @@ app.get('/interaction/:uid/abort', (req, res, next) => {
   console.log('GET :: /:uid/abort')
   //res.sendFile(path.resolve('dist/index.html'))
 })
+
+app.use((err, req, res, next) => {
+  
+  res.redirect(`/Error?error=${err.error}&error_description=${err.error_description}`)
+
+  if (err instanceof SessionNotFound) {
+    // handle interaction expired / session not found error
+  }
+  next(err);
+});
 
 app.use(oidc.callback)
 

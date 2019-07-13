@@ -8,7 +8,7 @@ export default {
       }
     },
     "color": {
-      "value": "#ffffff"
+      "value": "#333333"
     },
     "shape": {
       "type": "circle",
@@ -43,7 +43,7 @@ export default {
     "line_linked": {
       "enable": true,
       "distance": 150,
-      "color": "#ffffff",
+      "color": "#333333",
       "opacity": 0.4,
       "width": 1
     },
@@ -90,7 +90,7 @@ export default {
         "speed": 3
       },
       "repulse": {
-        "distance": 100,
+        "distance": 80,
         "duration": 0.4
       },
       "push": {

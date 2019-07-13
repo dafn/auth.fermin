@@ -3,37 +3,46 @@
   import "./index.css";
 
   new Particles({
-    target: document.querySelector('main'),
+    target: document.querySelector("main"),
     props: {
       id: "particles"
     }
-  })
+  });
 
-  const idInputText = "Epost",
-    keyInputText = "Passord",
+  const src = require("../../assets/fermin-inverted.png"),
+    title = "Log in to Fermin",
+    mailPlaceholder = "Epost",
+    passwordPlaceholder = "Passord",
     LogInButtonText = "Log In",
     action = location.href,
-    id = "particles";
+    id = "particles"
 
-  let mail = "";
+  let mail = "",
+    password = "";
+
+  $: disabled = !(mail.includes("@") && password.length >= 8)
 </script>
 
 <section>
   <form {action} method="POST">
-    <img alt="fermin logo" />
+    <img alt="fermin logo" {src} />
 
-    <h2>Login to Fermin</h2>
+    <h2>{title}</h2>
 
     <div id="username_container" class="input_container">
       <input
         type="text"
         name="login"
-        placeholder={idInputText}
+        placeholder={mailPlaceholder}
         bind:value={mail} />
     </div>
 
     <div id="password_container" class="input_container">
-      <input type="password" name="passsword" placeholder={keyInputText} />
+      <input
+        type="password"
+        name="passsword"
+        placeholder={passwordPlaceholder}
+        bind:value={password} />
     </div>
 
     <div id="checkbox_container">
@@ -41,7 +50,9 @@
       <label for="checkbox">Remember Me</label>
     </div>
 
-    <button>{LogInButtonText}</button>
+    <button class:disabled {disabled}>
+      {LogInButtonText}
+    </button>
 
     <input id="prompt" name="prompt" value="login" />
   </form>
