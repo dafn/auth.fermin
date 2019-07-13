@@ -48,7 +48,9 @@ app.get('/interaction/:uid', async (req, res, next) => {
       uid, prompt, params, session,
     } = await oidc.interactionDetails(req)
 
-    console.log(uid, prompt, params, session)
+    const a = await oidc.interactionDetails(req)
+
+    console.log(a)
 
     const client = await oidc.Client.find(params.client_id)
 
@@ -88,13 +90,8 @@ app.get('/interaction/:uid/abort', (req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-  
   res.redirect(`/Error?error=${err.error}&error_description=${err.error_description}`)
-
-  if (err instanceof SessionNotFound) {
-    // handle interaction expired / session not found error
-  }
-  next(err);
+  next(err)
 });
 
 app.use(oidc.callback)
