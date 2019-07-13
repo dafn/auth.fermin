@@ -22,8 +22,13 @@ const oidc = new Provider('http://localhost:3000', {
     profile: ['name']
   },
   clients,
-  findById: (ctx, id) => users.find(id),
-  renderError: (ctx, {error, error_description}) => 
+  async findAccount(ctx, id) {
+    return {
+      accountId: id,
+      async claims(use, scope) { return { sub: id }; },
+    };
+  },
+  renderError: (ctx, { error, error_description }) =>
     ctx.res.redirect(`/Error?error=${error}&error_description=${error_description}`)
 })
 
