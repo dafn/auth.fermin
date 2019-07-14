@@ -6,7 +6,7 @@ const express = require('express'),
 
 const { strict: assert } = require('assert');
 
-const users = ['dafn.netcom@gmail.com']
+const Account = require("./Account")
 
 const clients = [{
   client_id: 'test_implicit_app',
@@ -19,17 +19,19 @@ const clients = [{
 const oidc = new Provider('http://localhost:3000', {
   claims: {
     email: ['email', 'email_verified'],
-    profile: ['name']
+    openid: ['sub']
   },
   clients,
-  async findAccount(ctx, id) {
-    return {
-      accountId: id,
-      async claims(use, scope) { return { sub: id }; },
-    };
-  },
+  findAccount: Account.findById,
   renderError: (ctx, { error, error_description }) =>
-    ctx.res.redirect(`/Error?error=${error}&error_description=${error_description}`)
+    ctx.res.redirect(`/Error?error=${error}&error_description=${error_description}`),
+  interactionUrl: ctx => `/interaction/${ctx.oidc.uid}`,
+  features: {
+    devInteractions: { enabled: false },
+    encryption: { enabled: true },
+    introspection: { enabled: true },
+    revocation: { enabled: true },
+  },
 })
 
 app.use(bodyParser.json())
@@ -49,29 +51,41 @@ app.use(express.static(path.resolve(__dirname, 'dist/'), {
 
 app.get('/interaction/:uid', async (req, res, next) => {
   try {
-    const {
-      uid, prompt, params, session,
-    } = await oidc.interactionDetails(req)
+    const { prompt, params } = await oidc.interactionDetails(req),
+      client = await oidc.Client.find(params.client_id)
 
-    const a = await oidc.interactionDetails(req)
-
-    console.log(a)
-
-    const client = await oidc.Client.find(params.client_id)
-
-    if (prompt.name.toLowerCase() === 'login')
-      return res.sendFile(path.resolve('dist/Login/index.html'))
-    else
-      return res.sendFile(path.resolve('dist/Consent/index.html'))
+    return prompt.name.toLowerCase() === 'login'
+      ? res.sendFile(path.resolve('dist/Login/index.html'))
+      : res.sendFile(path.resolve('dist/Consent/index.html'))
 
   } catch (error) {
     return next(error)
   }
 })
 
-app.post('/interaction/:uid/login', (req, res, next) => {
+app.post('/interaction/:uid/login', async (req, res, next) => {
   console.log('POST :: /:uid/login')
-  // res.sendFile(path.resolve('dist/index.html'))
+  try {
+    const { uid, prompt, params } = await oidc.interactionDetails(req);
+    const client = await oidc.Client.find(params.client_id);
+
+    const account = await Account.authenticate(req.body.email, req.body.password);
+
+    if (!account) {
+      res.send('invalid user')
+      return;
+    }
+
+    const result = {
+      login: {
+        account: account.accountId,
+      },
+    };
+
+    await oidc.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+  } catch (err) {
+    next(err);
+  }
 })
 
 app.post('/interaction/:uid/confirm', async (req, res, next) => {
@@ -89,9 +103,17 @@ app.post('/interaction/:uid/confirm', async (req, res, next) => {
   }
 })
 
-app.get('/interaction/:uid/abort', (req, res, next) => {
+app.get('/interaction/:uid/abort', async (req, res, next) => {
   console.log('GET :: /:uid/abort')
-  //res.sendFile(path.resolve('dist/index.html'))
+  try {
+    const result = {
+      error: 'access_denied',
+      error_description: 'End-User aborted interaction',
+    };
+    await oidc.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+  } catch (err) {
+    next(err);
+  }
 })
 
 app.use((err, req, res, next) => {

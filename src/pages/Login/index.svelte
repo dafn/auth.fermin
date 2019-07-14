@@ -14,7 +14,7 @@
     mailPlaceholder = "Epost",
     passwordPlaceholder = "Passord",
     LogInButtonText = "Log In",
-    action = location.href,
+    action = location.href + '/login',
     id = "particles"
 
   let mail = "",
@@ -32,7 +32,7 @@
     <div id="username_container" class="input_container">
       <input
         type="text"
-        name="login"
+        name="email"
         placeholder={mailPlaceholder}
         bind:value={mail} />
     </div>
@@ -40,7 +40,7 @@
     <div id="password_container" class="input_container">
       <input
         type="password"
-        name="passsword"
+        name="password"
         placeholder={passwordPlaceholder}
         bind:value={password} />
     </div>
