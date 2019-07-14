@@ -20,7 +20,7 @@
   let mail = "",
     password = "";
 
-  $: disabled = !(mail.includes("@") && password.length >= 8)
+  $: disabled = !(mail.includes("@") && password.length >= 8 && password.length <= 18)
 </script>
 
 <section>

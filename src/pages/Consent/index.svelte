@@ -1,11 +1,11 @@
 <script>
 
-  const action = location.href
+  const action = location.href + "/confirm"
 
 </script>
 
 <form {action} method="POST" >
 
-  <input type="submit" name="prompt" value="consent" />
+  <button autofocus type="submit"> Consent </button>
 
 </form>

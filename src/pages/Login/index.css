@@ -66,6 +66,7 @@ label {
 button {
   position: absolute;
   background: #21ba45;
+  border: solid 1px #21ba45;
   color: white;
   box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
   transition: background .15s;
@@ -75,7 +76,6 @@ button {
   border-radius: .28571429rem;
   bottom: 30px;
   width: 300px;
-  border: none;
   outline: 0;
 }
 button:hover {
@@ -85,7 +85,7 @@ button:hover {
 button.disabled {
   cursor: default;
   background: transparent;
-  border: dotted 2px #bfbfbf;
+  border: dotted 1px #bfbfbf;
   color: #bfbfbf;
 }
 #prompt {
