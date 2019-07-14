@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import config from '../../config/particles.config.js'
+  import config from './particles.config.js'
   import "./particles.js";
 
   export let id;
