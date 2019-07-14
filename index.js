@@ -6,7 +6,7 @@ const express = require('express'),
 
 const { strict: assert } = require('assert');
 
-const Account = require("./Account")
+const Account = require("./src/utils/Account")
 
 const clients = [{
   client_id: 'test_implicit_app',

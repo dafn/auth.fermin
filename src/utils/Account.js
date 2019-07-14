@@ -1,16 +1,7 @@
 const assert = require('assert');
 const _ = require('lodash');
-
-const USERS = {
-  '23121d3c-84df-44ac-b458-3d63a9a05497': {
-    email: 'foo@example.com',
-    email_verified: true,
-  },
-  'c2ac2b4a-2262-4e2f-847a-a40dd3c4dcd5': {
-    email: 'bar@example.com',
-    email_verified: false,
-  },
-};
+const { USERS } = require('../database/users')
+const { SHA512 } = require('./SHA512')
 
 class Account {
   constructor(id) {
@@ -32,20 +23,14 @@ class Account {
   }
 
   static async authenticate(email, password) {
-
-    console.log('password ::', password)
-    console.log('email ::', email)
-
     try {
       assert(password, 'password must be provided');
       assert(email, 'email must be provided');
 
-      const lowercased = String(email).toLowerCase();
-      const id = _.findKey(USERS, { email: lowercased });
+      const id = _.findKey(USERS, { email: String(email).toLowerCase(), password: SHA512(password) });
 
       assert(id, 'invalid credentials provided');
 
-      // this is usually a db lookup, so let's just wrap the thing in a promise
       return new this(id);
     } catch (err) {
       return undefined;
