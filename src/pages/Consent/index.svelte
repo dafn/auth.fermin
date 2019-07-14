@@ -1,11 +1,9 @@
 <script>
+  import { onMount } from "svelte";
 
-  const action = location.href + "/confirm"
+  const action = `${location.href}/confirm`;
 
+  onMount(() => document.getElementById("consent_form").submit());
 </script>
 
-<form {action} method="POST" >
-
-  <button autofocus type="submit"> Consent </button>
-
-</form>
+<form id="consent_form" {action} method="POST" />
