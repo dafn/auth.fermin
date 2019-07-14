@@ -55,12 +55,10 @@ input {
 input:focus {
   border-color: #85b7d9;
 }
-#checkbox_container {
-  margin: 5px auto 0 20px;
-}
 label {
   color: gray;
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  user-select: none;
   font-size: 14px;
 }
 button {
