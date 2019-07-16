@@ -4,7 +4,8 @@ const express = require('express'),
   Provider = require('oidc-provider'),
   bodyParser = require('body-parser'),
   interaction = require('./src/routes/interaction'),
-  Account = require("./src/utils/Account")
+  Account = require("./src/utils/Account"),
+  { Terminal } = require("./src/utils/Terminal")
 
 const clients = [{
   client_id: 'test_implicit_app',
@@ -32,11 +33,12 @@ const oidc = new Provider('http://localhost:3000', {
   },
 })
 
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 app.use("/", (req, res, next) => {
   res.oidc = oidc
+  console.log(`${Terminal.BLUE}${req.method}${Terminal.RESET} :: ${req.get('host')}${req.originalUrl}`)
   next()
 })
 

@@ -1,9 +1,10 @@
 <script>
   import { onMount } from "svelte";
 
+  let form;
   const action = `${location.href}/confirm`;
 
-  onMount(() => document.getElementById("consent_form").submit());
+  onMount(() => form.submit());
 </script>
 
-<form id="consent_form" {action} method="POST" />
+<form id="consent_form" bind:this={form} {action} method="POST" />

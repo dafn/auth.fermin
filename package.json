@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "serve": "parcel serve src/index.pug",
-    "dev": "parcel watch src/pages/Login/index.pug src/pages/Consent/index.pug src/pages/Error/index.pug & nodemon index.js"
+    "dev": "parcel watch --no-hmr src/pages/Login/index.pug src/pages/Consent/index.pug src/pages/Error/index.pug & nodemon index.js",
+    "build": "parcel build src/pages/Login/index.pug src/pages/Consent/index.pug src/pages/Error/index.pug --experimental-scope-hoisting",
+    "prod": "node index.js"
   },
   "dependencies": {
     "assets": "^3.0.1",
