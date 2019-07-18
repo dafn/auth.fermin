@@ -28,16 +28,20 @@
   const postForm = () => {
     fetch(action, {
       method: "POST",
+      redirect: "follow",
+      mode: 'no-cors',
       body: `email=${mail}&password=${encodeURIComponent(
         password
       )}&remember=${checked}`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
-    }).then(response => {
-      if (response.status === 406) authenticationFailure = true;
-      else window.location.reload();
-    });
+    })
+      .then(response => {
+        if (response.status === 406) authenticationFailure = true;
+        else window.location.reload();
+      })
+      .catch(error => console.error("Error:", error));
   };
 </script>
 
@@ -50,7 +54,7 @@
     <img alt="fermin logo" {src} />
 
     <h2>{title}</h2>
-    
+
     {#if authenticationFailure}
       <p>wrong email and / or password</p>
     {/if}
