@@ -3,10 +3,10 @@ const express = require('express'),
   path = require('path'),
   Provider = require('oidc-provider'),
   bodyParser = require('body-parser'),
-  interaction = require('./src/routes/interaction'),
-  Account = require("./src/utils/Account"),
-  { Terminal } = require("./src/utils/Terminal"),
-  { ISSUER, SETUP } = require('./src/config/provider.config')
+  interaction = require('./routes/interaction'),
+  Account = require("./utils/Account"),
+  { Terminal } = require("./utils/Terminal"),
+  { ISSUER, SETUP } = require('./config/provider.config')
 
 const oidc = new Provider(ISSUER, SETUP)
 
@@ -19,7 +19,7 @@ app.use("/", (req, res, next) => {
   next()
 })
 
-app.use(express.static(path.resolve(__dirname, 'dist/'), {
+app.use(express.static(path.resolve(__dirname, '../dist/'), {
   setHeaders: res => {
     res.set('X-XSS-Protection', '1; mode=block')
     res.set('X-Frame-Options', 'DENY')
