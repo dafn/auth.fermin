@@ -1,7 +1,7 @@
-const router = require('express').Router()
-const Account = require('../utils/Account')
-const { strict: assert } = require('assert');
-const path = require('path')
+const router = require('express').Router(),
+  Account = require('../utils/Account'),
+  { strict: assert } = require('assert'),
+  path = require('path')
 
 router.get('/:uid', async (req, res, next) => {
   try {
@@ -16,6 +16,7 @@ router.get('/:uid', async (req, res, next) => {
     return next(error)
   }
 })
+
 router.post('/:uid/login', async (req, res, next) => {
   if (!(req.body.email.includes("@") && req.body.password.length >= 8 && req.body.password.length <= 18)) {
     res.sendStatus(406)
@@ -43,16 +44,18 @@ router.post('/:uid/login', async (req, res, next) => {
     next(err);
   }
 })
+
 router.post('/:uid/confirm', async (req, res, next) => {
   try {
     const { prompt: { name, details } } = await res.oidc.interactionDetails(req)
     assert.equal(name, 'consent')
     await res.oidc.interactionFinished(req, res, { consent: {} }, { mergeWithLastSubmission: true });
   } catch (error) {
-    console.log('confirm ERROR ::', error)
+    console.error('confirm ERROR ::', error)
     return next(error)
   }
 })
+
 router.get('/:uid/abort', async (req, res, next) => {
   try {
     const result = {
@@ -64,4 +67,5 @@ router.get('/:uid/abort', async (req, res, next) => {
     next(err);
   }
 })
+
 module.exports = router
