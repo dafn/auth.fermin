@@ -28,19 +28,16 @@
   const postForm = () => {
     fetch(action, {
       method: "POST",
-      redirect: "follow",
-      mode: 'no-cors',
       body: `email=${mail}&password=${encodeURIComponent(
         password
       )}&remember=${checked}`,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
     })
       .then(response => {
         if (response.status === 406) authenticationFailure = true;
-        else window.location.reload();
+        else return response.json();
       })
+      .then(data => (window.location.href = data.redirectURL))
       .catch(error => console.error("Error:", error));
   };
 </script>

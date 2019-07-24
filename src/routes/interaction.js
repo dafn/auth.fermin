@@ -34,7 +34,11 @@ router.post('/:uid/login', async (req, res, next) => {
 
     const result = { login: { account: account.accountId, }, };
 
-    await res.oidc.interactionFinished(req, res, result, { mergeWithLastSubmission: false });
+    const redirectURL = await res.oidc.interactionResult(req, res, result);
+
+    res.send(`{
+      "redirectURL": "${redirectURL}"
+    }`);
   } catch (err) {
     next(err);
   }

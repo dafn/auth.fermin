@@ -30,7 +30,7 @@ const oidc = new Provider('http://localhost:3000', {
     encryption: { enabled: true },
     introspection: { enabled: true },
     revocation: { enabled: true },
-  },
+  }
 })
 
 app.use(bodyParser.urlencoded({ extended: true }))
