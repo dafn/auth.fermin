@@ -1,4 +1,7 @@
-const Account = require("../utils/Account");
+const Account = require("../utils/Account"),
+  path = require('path'),
+  { readFileSync } = require('fs'),
+  errorPage = readFileSync(path.resolve('dist/Error/index.html'), 'utf8')
 
 exports.ISSUER = "http://localhost:3000";
 exports.SETUP = {
@@ -14,8 +17,10 @@ exports.SETUP = {
     token_endpoint_auth_method: 'none'
   }],
   findAccount: Account.findById,
-  renderError: (ctx, { error, error_description }) =>
-    ctx.res.redirect(`/Error?error=${error}&error_description=${error_description}`),
+  renderError: (ctx, { error, error_description }) => {
+    ctx.type = 'html'
+    ctx.body = errorPage
+  },
   interactionUrl: ctx => `/interaction/${ctx.oidc.uid}`,
   features: {
     devInteractions: { enabled: false },
