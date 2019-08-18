@@ -1,5 +1,5 @@
 const assert = require('assert');
-const _ = require('lodash');
+const { findKey } = require('lodash/findKey');
 const { USERS } = require('../database/users')
 const { SHA512 } = require('./SHA512')
 
@@ -27,7 +27,7 @@ class Account {
       assert(password, 'password must be provided');
       assert(email, 'email must be provided');
 
-      const id = _.findKey(USERS, { email: String(email).toLowerCase(), password: SHA512(password) });
+      const id = findKey(USERS, { email: String(email).toLowerCase(), password: SHA512(password) });
 
       assert(id, 'invalid credentials provided');
 

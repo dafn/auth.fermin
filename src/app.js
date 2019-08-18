@@ -4,7 +4,6 @@ const express = require('express'),
   Provider = require('oidc-provider'),
   bodyParser = require('body-parser'),
   interaction = require('./routes/interaction'),
-  Account = require('./utils/Account'),
   { Terminal } = require("./utils/Terminal"),
   { ISSUER, SETUP } = require('./config/provider.config')
 
