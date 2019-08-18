@@ -7,7 +7,7 @@
     mailPlaceholder = "Epost",
     passwordPlaceholder = "Passord",
     LogInButtonText = "Log In",
-    action = location.href + "/login",
+    action = `${location.href}/login`,
     id = "particles";
 
   let mail = "",
