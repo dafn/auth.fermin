@@ -1,7 +1,7 @@
 const assert = require('assert');
-const { findKey } = require('lodash/findKey');
-const { USERS } = require('../database/users')
-const { SHA512 } = require('./SHA512')
+const findKey = require('lodash/findKey');
+const USERS = require('../database/users')
+const SHA512 = require('./SHA512')
 
 class Account {
   constructor(id) {
@@ -11,14 +11,13 @@ class Account {
   // claims() should return or resolve with an object with claims that are mapped 1:1 to
   // what your OP supports, oidc-provider will cherry-pick the requested ones automatically
   claims() {
-    return Object.assign({}, USERS[this.accountId], {
+    return Object.assign({}, {
       sub: this.accountId,
+      email: USERS[this.accountId].email
     });
   }
 
   static async findById(ctx, id) {
-    // this is usually a db lookup, so let's just wrap the thing in a promise, oidc-provider expects
-    // one
     return new Account(id);
   }
 

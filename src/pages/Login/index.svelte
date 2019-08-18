@@ -7,7 +7,6 @@
     mailPlaceholder = "Epost",
     passwordPlaceholder = "Passord",
     LogInButtonText = "Log In",
-    action = `${location.href}/login`,
     id = "particles";
 
   let mail = "",
@@ -22,11 +21,11 @@
   );
 
   const onKeydown = e => {
-    if (!disabled && e.key === "Enter") postForm();
+    if (!disabled && e.key === "Enter") authenticate();
   };
 
-  const postForm = () => {
-    fetch(action, {
+  const authenticate = () => {
+    fetch(`${location.href}/login`, {
       method: "POST",
       body: `email=${mail}&password=${encodeURIComponent(
         password
@@ -47,7 +46,7 @@
 <Particles id="particles" />
 
 <section>
-  <form {action} method="POST">
+  <form>
     <img alt="fermin logo" {src} />
 
     <h2>{title}</h2>
@@ -86,7 +85,7 @@
       <span class="checkmark" />
     </label>
 
-    <button class:disabled {disabled} type="button" on:click={postForm}>
+    <button class:disabled {disabled} type="button" on:click={authenticate}>
       {LogInButtonText}
     </button>
 

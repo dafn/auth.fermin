@@ -6,7 +6,7 @@ const Account = require("../utils/Account"),
 exports.ISSUER = "http://localhost:3000";
 exports.SETUP = {
   claims: {
-    email: ['email', 'email_verified'],
+    email: ['email'],
     openid: ['sub']
   },
   clients: [{

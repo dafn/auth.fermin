@@ -3,7 +3,7 @@
 * http://www.happycode.info/
 */
 
-exports.SHA512 = function(str) {
+const SHA512 = function(str) {
   function int64(msint_32, lsint_32) {
   this.highOrder = msint_32;
   this.lowOrder = lsint_32;
@@ -269,3 +269,5 @@ exports.SHA512 = function(str) {
   }
   return binb2hex(binarray);
  }
+
+ module.exports = SHA512
