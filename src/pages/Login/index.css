@@ -30,6 +30,7 @@ form {
 h2 {
   color: #333333;
   margin-top: 0;
+  cursor: default;
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 p {
@@ -70,6 +71,7 @@ input:focus {
   position: absolute;
   right: 10px;
   opacity: .4;
+  cursor: pointer;
   height: 25px;
   top: 19px;
   width: 25px;

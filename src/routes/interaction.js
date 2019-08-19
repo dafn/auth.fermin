@@ -5,8 +5,7 @@ const router = require('express').Router(),
 
 router.get('/:uid', async (req, res, next) => {
   try {
-    const { prompt, params } = await res.oidc.interactionDetails(req),
-      client = await res.oidc.Client.find(params.client_id)
+    const { prompt } = await res.oidc.interactionDetails(req)
 
     return prompt.name.toLowerCase() === 'login'
       ? res.sendFile(path.resolve('dist/Login/index.html'))
@@ -24,9 +23,7 @@ router.post('/:uid/login', async (req, res, next) => {
   }
 
   try {
-    const { uid, prompt, params } = await res.oidc.interactionDetails(req),
-      client = await res.oidc.Client.find(params.client_id),
-      account = await Account.authenticate(req.body.email, req.body.password);
+    const account = await Account.authenticate(req.body.email, req.body.password);
 
     if (!account) {
       res.sendStatus(406)
