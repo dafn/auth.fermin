@@ -1,9 +1,13 @@
+<!-- TODO: Make a funny and clever error page -->
+
 <script>
   import "./index.css";
 
+  /*
   const parameters = Array.from(
     new URLSearchParams(window.location.search).entries()
   );
+  */
 </script>
 
 <section id="error_main_container">

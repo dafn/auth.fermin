@@ -1,3 +1,5 @@
+<!-- TODO: Add proper consent support -->
+
 <script>
   import { onMount } from "svelte";
 
