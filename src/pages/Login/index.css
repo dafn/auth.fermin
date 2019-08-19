@@ -22,7 +22,7 @@ form {
   height: 500px;
   width: 350px;
 }
-img {
+#logo {
   position: absolute;
   top: 30px;
   height: 60px;
@@ -43,6 +43,7 @@ p {
   display: flex;
   flex-direction: column;
   transition: all 1s ease;
+  position: relative;
   width: 300px;
   padding: 10px 0;
 }
@@ -64,6 +65,17 @@ input {
 }
 input:focus {
   border-color: #85b7d9;
+}
+#eye {
+  position: absolute;
+  right: 10px;
+  opacity: .4;
+  height: 25px;
+  top: 19px;
+  width: 25px;
+}
+#eye.showPassword {
+  opacity: 1;
 }
 label {
   color: gray;

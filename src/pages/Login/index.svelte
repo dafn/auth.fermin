@@ -2,17 +2,17 @@
   import Particles from "../../components/Particles";
   import "./index.css";
 
-  const src = require("../../assets/fermin-inverted.png"),
-    title = "Log in to Fermin",
-    mailPlaceholder = "Epost",
-    passwordPlaceholder = "Passord",
-    LogInButtonText = "Log In",
+  export let title, mailPlaceholder, passwordPlaceholder, LogInButtonText;
+
+  const logo = require("../../assets/fermin-inverted.png"),
+    eye = require("../../assets/eye.svg"),
     id = "particles";
 
   let mail = "",
     password = "",
     checked = true,
-    authenticationFailure = false;
+    authenticationFailure = false,
+    showPassword = false;
 
   $: disabled = !(
     mail.includes("@") &&
@@ -43,11 +43,11 @@
 
 <svelte:window on:keydown={onKeydown} />
 
-<Particles id="particles" />
+<Particles {id} />
 
 <section>
   <form>
-    <img alt="fermin logo" {src} />
+    <img id="logo" alt="fermin logo" src={logo} />
 
     <h2>{title}</h2>
 
@@ -69,14 +69,23 @@
 
     <div id="password_container" class="input_container">
       <input
-        type="password"
+        type={showPassword ? 'text' : 'password'}
         name="password"
-        on:change={() => {
+        on:keyup={({ target: { value } }) => {
+          password = value;
           authenticationFailure = false;
         }}
         placeholder={passwordPlaceholder}
         class:authenticationFailure
-        bind:value={password} />
+        value={password} />
+      <img
+        id="eye"
+        src={eye}
+        alt="eye"
+        on:click={() => {
+          showPassword = !showPassword;
+        }}
+        class:showPassword />
     </div>
 
     <label id="checkbox_container">
