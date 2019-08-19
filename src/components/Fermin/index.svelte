@@ -1,29 +1,28 @@
 <script>
   import { onMount } from "svelte";
 
-  let canvas,
-    running = false;
+  let canvas;
 
   const r = Math.random();
 
   onMount(() => {
-    const ctx = canvas.getContext("2d");
+    const context = canvas.getContext("2d");
     let frame, loop;
 
     (loop = () => {
       frame = requestAnimationFrame(loop);
 
-      const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const image = context.getImageData(0, 0, canvas.width, canvas.height);
 
       for (let p = 0; p < image.data.length; p += 4) {
-        const i = p / 4;
-        const x = i % canvas.width;
-        const y = (i / canvas.height) >>> 0;
+        const i = p / 4,
+          x = i % canvas.width,
+          y = (i / canvas.height) >>> 0;
 
         const t = window.performance.now();
 
-        const r = 64 + (128 * x) / canvas.width + 64 * Math.sin(t / 2000),
-          g = 64 + (128 * y) / canvas.height + 64 * Math.cos(t / 2000),
+        const r = 64 + (128 * x) / canvas.width + 64 * Math.sin(t / 2500),
+          g = 64 + (128 * y) / canvas.height + 64 * Math.cos(t / 2500),
           b = 128;
 
         image.data[p + 0] = r;
@@ -31,12 +30,10 @@
         image.data[p + 2] = b;
         image.data[p + 3] = 255;
       }
-      ctx.putImageData(image, 0, 0);
+      context.putImageData(image, 0, 0);
     })();
 
-    return () => {
-      cancelAnimationFrame(frame);
-    };
+    return () => cancelAnimationFrame(frame);
   });
 </script>
 
@@ -44,7 +41,7 @@
   canvas {
     width: 100px;
     height: 100px;
-    background-color: #666;
+    background-color: white;
     -webkit-mask: url(../../assets/blackbox.svg) 50% 50% no-repeat;
     mask: url(../../assets/blackbox.svg) 50% 50% no-repeat;
   }
