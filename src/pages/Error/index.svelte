@@ -3,11 +3,8 @@
 <script>
   import "./index.css";
 
-  /*
-  const parameters = Array.from(
-    new URLSearchParams(window.location.search).entries()
-  );
-  */
+  const { error, error_description } = JSON.parse(document.getElementById("error_data").innerHTML)
+
 </script>
 
 <section id="error_main_container">
