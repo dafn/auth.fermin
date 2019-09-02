@@ -1,6 +1,7 @@
 const Account = require("../utils/Account"),
   path = require('path'),
   { readFileSync } = require('fs'),
+  CLIENTS = require('../database/clients'),
   errorPage = readFileSync(path.resolve('dist/Error/index.html'), 'utf8')
 
 exports.ISSUER = process.env.ISSUER || "http://localhost:3000";
@@ -9,13 +10,13 @@ exports.SETUP = {
     email: ['email'],
     openid: ['sub']
   },
-  clients: [{ // test client
+  clients: process.env.NODE_ENV !== "production" ? [{ // test client
     client_id: 'test_implicit_app',
     grant_types: ['implicit'],
     response_types: ['id_token'],
     redirect_uris: ['https://www.fermin.no'],
     token_endpoint_auth_method: 'none'
-  }],
+  }] : CLIENTS,
   findAccount: Account.findById,
   renderError: (ctx, { error, error_description }) => {
     ctx.type = 'html'

@@ -8,8 +8,6 @@ class Account {
     this.accountId = id;
   }
 
-  // claims() should return or resolve with an object with claims that are mapped 1:1 to
-  // what your OP supports, oidc-provider will cherry-pick the requested ones automatically
   claims() {
     return Object.assign({}, {
       sub: this.accountId,
