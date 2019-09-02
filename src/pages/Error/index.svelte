@@ -3,7 +3,7 @@
 <script>
   import "./index.css";
 
-  const { error, error_description } = JSON.parse(document.getElementById("error_data").innerHTML)
+  const { error, error_description } = window.provider_error_data
 
 </script>
 

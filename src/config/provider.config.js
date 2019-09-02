@@ -20,7 +20,7 @@ exports.SETUP = {
   renderError: (ctx, { error, error_description }) => {
     ctx.type = 'html'
     ctx.body =
-      `<script id="error_data"> {"error": "${error}","error_description": "${error_description}"} </script>`
+      `<script id="error_data"> window.provider_error_data = {error: "${error}", error_description: "${error_description}"} </script>`
       + errorPage
   },
   interactionUrl: ctx => `/interaction/${ctx.oidc.uid}`,
