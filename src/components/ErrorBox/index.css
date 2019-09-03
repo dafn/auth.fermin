@@ -1,0 +1,16 @@
+.infobox_error_container {
+  height: max-content;
+  padding: 0 20px;
+  font: 300 14pt Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  color: #a7a7a7;
+  cursor: default;
+}
+
+.infobox_error_title {
+  letter-spacing: .05em;
+  font-size: 12pt;
+}
+
+.infobox_error_description {
+  font-size: 10pt;
+}

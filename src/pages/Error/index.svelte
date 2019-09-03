@@ -1,10 +1,8 @@
-<!-- TODO: Make a funny and clever error page -->
-
 <script>
+  import ErrorBox from "../../components/ErrorBox";
   import "./index.css";
 
-  const { error, error_description } = window.provider_error_data
-
+  const { error, error_description } = window.provider_error_data;
 </script>
 
 <section id="error_main_container">
@@ -13,3 +11,8 @@
     <p id="error_description">OOPS! NOTHING WAS FOUND</p>
   </section>
 </section>
+
+<ErrorBox
+  title={error}
+  description={error_description}
+  className="error_infobox" />
