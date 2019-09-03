@@ -1,5 +1,5 @@
 <script>
-  import ErrorBox from "../../components/ErrorBox";
+  import ErrorBox from "components/ErrorBox";
   import "./index.css";
 
   const { error, error_description } = window.provider_error_data;

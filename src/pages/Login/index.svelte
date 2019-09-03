@@ -1,11 +1,11 @@
 <script>
-  import Particles from "../../components/Particles";
+  import Particles from "components/Particles";
   import "./index.css";
 
   export let title, mailPlaceholder, passwordPlaceholder, LogInButtonText;
 
-  const logo = require("../../assets/fermin-inverted.png"),
-    eye = require("../../assets/eye.svg"),
+  const logo = require("assets/fermin-inverted.png"),
+    eye = require("assets/eye.svg"),
     id = "particles";
 
   let mail = "",
@@ -59,8 +59,11 @@
       <input
         type="text"
         name="email"
-        on:change={() => {
-          authenticationFailure = false;
+        on:keyup={({ target: { value }, key }) => {
+          if (key !== 'Enter') {
+            mail = value;
+            authenticationFailure = false;
+          }
         }}
         placeholder={mailPlaceholder}
         class:authenticationFailure
@@ -71,9 +74,11 @@
       <input
         type={showPassword ? 'text' : 'password'}
         name="password"
-        on:keyup={({ target: { value } }) => {
-          password = value;
-          authenticationFailure = false;
+        on:keyup={({ target: { value }, key }) => {
+          if (key !== 'Enter') {
+            password = value;
+            authenticationFailure = false;
+          }
         }}
         placeholder={passwordPlaceholder}
         class:authenticationFailure

@@ -33,5 +33,9 @@
     "compilerOptions": {
       "css": false
     }
+  },
+  "alias": {
+    "components": "./src/components",
+    "assets": "./src/assets"
   }
 }
