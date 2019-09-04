@@ -24,9 +24,10 @@
 }
 #error_logo {
   grid-area: top;
-  font: lighter 82px Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font: lighter 65pt Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   cursor: default;
   color: #db2828;
+  border-bottom: solid 1px;
   margin: auto;
 }
 #error_description {
@@ -46,6 +47,7 @@
   #error_logo {
     font-size: 58px;
     padding: 35px 55px;
+    border-bottom: unset;
   }
   #error_description {
     font-size: 18px;
